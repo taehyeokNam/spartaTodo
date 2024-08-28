@@ -7,8 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 public class TodoController {
@@ -16,7 +14,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping("/todos")
-    public ResponseEntity<TodoSaveResponseDto> saveTodo(TodoSaveRequestDto todoSaveRequestDto) {
+    public ResponseEntity<TodoSaveResponseDto> saveTodo(@RequestBody TodoSaveRequestDto todoSaveRequestDto) {
         return ResponseEntity.ok(todoService.saveTodo(todoSaveRequestDto));
     }
 
@@ -34,7 +32,7 @@ public class TodoController {
     }
 
     @PutMapping("/todos/{todoId}")
-    public ResponseEntity<TodoUpdateResponseDto> updateTodo(@PathVariable Long todoId, TodoUpdateRequestDto todoUpdateRequestDto) {
+    public ResponseEntity<TodoUpdateResponseDto> updateTodo(@PathVariable Long todoId, @RequestBody TodoUpdateRequestDto todoUpdateRequestDto) {
         return ResponseEntity.ok(todoService.updateTodo(todoId, todoUpdateRequestDto));
     }
 

@@ -16,7 +16,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/todos/{todoId}/comments")
-    public ResponseEntity<CommentSaveResponseDto> saveComment(@PathVariable Long todoId, CommentSaveRequestDto commentSaveRequestDto) {
+    public ResponseEntity<CommentSaveResponseDto> saveComment(@PathVariable Long todoId, @RequestBody CommentSaveRequestDto commentSaveRequestDto) {
         return ResponseEntity.ok(commentService.saveComment(todoId, commentSaveRequestDto));
     }
 
@@ -25,17 +25,19 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getComments(todoId));
     }
 
-    @GetMapping("/todos/comment/{commentId}")
+    @GetMapping("/todos/comments/{commentId}")
     public ResponseEntity<CommentDetailResponseDto> getComment(@PathVariable Long commentId) {
         return ResponseEntity.ok(commentService.getComment(commentId));
     }
 
-    @PutMapping("/todos/comment/{commentId}")
-    public ResponseEntity<CommentUpdateResponseDto> updateComment(@PathVariable Long commentId, CommentUpdateRequestDto commentUpdateRequestDto) {
-        return ResponseEntity.ok(commentService.updateComment(commentId, commentUpdateRequestDto));
+    @PutMapping("/todos/comments/{commentId}")
+    public ResponseEntity<CommentDetailResponseDto> updateComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequestDto commentUpdateRequestDto) {
+        commentService.updateComment(commentId, commentUpdateRequestDto);
+        return ResponseEntity.ok(commentService.getComment(commentId));
+
     }
 
-    @DeleteMapping("todos/comment/{commentId}")
+    @DeleteMapping("todos/comments/{commentId}")
     public void deleteComment(@PathVariable Long commentId) {
          commentService.deleteComment(commentId);
     }

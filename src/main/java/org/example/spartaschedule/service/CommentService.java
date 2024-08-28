@@ -75,6 +75,7 @@ public class CommentService {
         Comment comment = findCommentById(commentId);
         comment.update(commentUpdateRequestDto.getUser(), commentUpdateRequestDto.getComment());
 
+
         return new CommentUpdateResponseDto(
                 comment.getId(),
                 comment.getUser(),
