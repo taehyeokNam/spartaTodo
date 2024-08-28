@@ -3,6 +3,7 @@ package org.example.spartaschedule.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.spartaschedule.dto.todo.*;
 import org.example.spartaschedule.service.TodoService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +21,11 @@ public class TodoController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<List<TodoSimpleResponseDto>> getTodos() {
-        return ResponseEntity.ok(todoService.getTodos());
+    public ResponseEntity<Page<TodoSimpleResponseDto>> getTodos(
+            @RequestParam(defaultValue = "1", required = false) int page,
+            @RequestParam(defaultValue = "10", required = false) int size
+    ) {
+        return ResponseEntity.ok(todoService.getTodos(page, size));
     }
 
     @GetMapping("/todos/{todoId}")
@@ -32,5 +36,10 @@ public class TodoController {
     @PutMapping("/todos/{todoId}")
     public ResponseEntity<TodoUpdateResponseDto> updateTodo(@PathVariable Long todoId, TodoUpdateRequestDto todoUpdateRequestDto) {
         return ResponseEntity.ok(todoService.updateTodo(todoId, todoUpdateRequestDto));
+    }
+
+    @DeleteMapping("/todos/{todoId}")
+    public void deleteTodo(@PathVariable Long todoId) {
+        todoService.deleteTodo(todoId);
     }
 }
