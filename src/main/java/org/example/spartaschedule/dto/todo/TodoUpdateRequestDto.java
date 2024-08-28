@@ -1,4 +1,4 @@
-package org.example.spartaschedule.dto;
+package org.example.spartaschedule.dto.todo;
 
 import lombok.Getter;
 
@@ -6,6 +6,6 @@ import lombok.Getter;
 public class TodoUpdateRequestDto {
 
     private String title;
-    private String managerName;
+    private String user;
     private String description;
 }

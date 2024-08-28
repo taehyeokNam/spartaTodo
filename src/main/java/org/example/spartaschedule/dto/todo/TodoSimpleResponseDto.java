@@ -1,4 +1,4 @@
-package org.example.spartaschedule.dto;
+package org.example.spartaschedule.dto.todo;
 
 import lombok.Getter;
 
@@ -9,7 +9,7 @@ public class TodoSimpleResponseDto {
 
     private Long id;
     private String title;
-    private String managerName;
+    private String user;
     private String description;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
@@ -17,14 +17,14 @@ public class TodoSimpleResponseDto {
     public TodoSimpleResponseDto(
             Long id,
             String title,
-            String managerName,
+            String user,
             String description,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt
     ) {
         this.id = id;
         this.title = title;
-        this.managerName = managerName;
+        this.user = user;
         this.description = description;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;

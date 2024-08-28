@@ -1,7 +1,7 @@
 package org.example.spartaschedule.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.spartaschedule.dto.*;
+import org.example.spartaschedule.dto.todo.*;
 import org.example.spartaschedule.entity.Todo;
 import org.example.spartaschedule.repository.TodoRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class TodoService {
         Todo newTodo = new Todo(
                 todoSaveRequestDto.getTitle(),
                 todoSaveRequestDto.getDescription(),
-                todoSaveRequestDto.getManagerName(),
+                todoSaveRequestDto.getUser(),
                 todoSaveRequestDto.getPassword()
         );
 
@@ -32,7 +32,7 @@ public class TodoService {
         return new TodoSaveResponseDto(
                 savedTodo.getId(),
                 savedTodo.getTitle(),
-                savedTodo.getManagerName(),
+                savedTodo.getUser(),
                 savedTodo.getDescription(),
                 savedTodo.getCreatedAt()
         );
@@ -47,7 +47,7 @@ public class TodoService {
             TodoSimpleResponseDto dto = new TodoSimpleResponseDto(
                     todo.getId(),
                     todo.getTitle(),
-                    todo.getManagerName(),
+                    todo.getUser(),
                     todo.getDescription(),
                     todo.getCreatedAt(),
                     todo.getModifiedAt()
@@ -63,7 +63,7 @@ public class TodoService {
         return new TodoDetailResponseDto(
                 todo.getId(),
                 todo.getTitle(),
-                todo.getManagerName(),
+                todo.getUser(),
                 todo.getCreatedAt(),
                 todo.getModifiedAt()
         );
@@ -75,14 +75,14 @@ public class TodoService {
 
         todo.update(
                 todoUpdateRequestDto.getTitle(),
-                todoUpdateRequestDto.getManagerName(),
+                todoUpdateRequestDto.getUser(),
                 todoUpdateRequestDto.getDescription()
         );
 
         return new TodoUpdateResponseDto(
                 todo.getId(),
                 todo.getTitle(),
-                todo.getManagerName(),
+                todo.getUser(),
                 todo.getDescription()
         );
     }

@@ -1,7 +1,7 @@
 package org.example.spartaschedule.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.spartaschedule.dto.*;
+import org.example.spartaschedule.dto.todo.*;
 import org.example.spartaschedule.service.TodoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
