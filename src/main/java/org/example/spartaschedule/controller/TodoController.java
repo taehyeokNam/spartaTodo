@@ -1,16 +1,10 @@
 package org.example.spartaschedule.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.spartaschedule.dto.TodoDetailResponseDto;
-import org.example.spartaschedule.dto.TodoSaveRequestDto;
-import org.example.spartaschedule.dto.TodoSaveResponseDto;
-import org.example.spartaschedule.dto.TodoSimpleResponseDto;
+import org.example.spartaschedule.dto.*;
 import org.example.spartaschedule.service.TodoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +27,10 @@ public class TodoController {
     @GetMapping("/todos/{todoId}")
     public ResponseEntity<TodoDetailResponseDto> getTodo(@PathVariable Long todoId) {
         return ResponseEntity.ok(todoService.getTodo(todoId));
+    }
+
+    @PutMapping("/todos/{todoId}")
+    public ResponseEntity<TodoUpdateResponseDto> updateTodo(@PathVariable Long todoId, TodoUpdateRequestDto todoUpdateRequestDto) {
+        return ResponseEntity.ok(todoService.updateTodo(todoId, todoUpdateRequestDto));
     }
 }

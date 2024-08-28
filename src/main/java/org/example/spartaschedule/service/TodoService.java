@@ -1,10 +1,7 @@
 package org.example.spartaschedule.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.spartaschedule.dto.TodoDetailResponseDto;
-import org.example.spartaschedule.dto.TodoSaveRequestDto;
-import org.example.spartaschedule.dto.TodoSaveResponseDto;
-import org.example.spartaschedule.dto.TodoSimpleResponseDto;
+import org.example.spartaschedule.dto.*;
 import org.example.spartaschedule.entity.Todo;
 import org.example.spartaschedule.repository.TodoRepository;
 import org.springframework.stereotype.Service;
@@ -72,8 +69,28 @@ public class TodoService {
         );
     }
 
+    @Transactional
+    public TodoUpdateResponseDto updateTodo(Long todoId , TodoUpdateRequestDto todoUpdateRequestDto) {
+        Todo todo = findTodoById(todoId);
+
+        todo.update(
+                todoUpdateRequestDto.getTitle(),
+                todoUpdateRequestDto.getManagerName(),
+                todoUpdateRequestDto.getDescription()
+        );
+
+        return new TodoUpdateResponseDto(
+                todo.getId(),
+                todo.getTitle(),
+                todo.getManagerName(),
+                todo.getDescription()
+        );
+    }
+
 
     private Todo findTodoById(Long todoId) {
         return todoRepository.findById(todoId).orElseThrow(()-> new NullPointerException("존재하지 않는 일정입니다."));
     }
+
+
 }

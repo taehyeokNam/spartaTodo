@@ -30,4 +30,9 @@ public class Todo extends Timestamped {
         this.password = password;
     }
 
+    public void update(String title, String managerName, String description) {
+        this.title = title;
+        this.managerName = managerName;
+        this.description = description;
+    }
 }
