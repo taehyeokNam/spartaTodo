@@ -84,13 +84,20 @@ public class CommentService {
         );
     }
 
+    @Transactional
+    public void deleteComment(Long commentId) {
+        if(findCommentById(commentId) != null)
+            commentRepository.deleteById(commentId);
+    }
+
     private Todo findTodoById(Long todoId) {
         return todoRepository.findById(todoId).orElseThrow(()-> new NullPointerException("존재하지 않는 일정입니다."));
     }
 
-    private Comment findCommentById(Long todoId) {
-        return commentRepository.findById(todoId).orElseThrow(()-> new NullPointerException("존재하지 않는 댓글입니다."));
+    private Comment findCommentById(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(()-> new NullPointerException("존재하지 않는 댓글입니다."));
     }
+
 
 
 }
