@@ -24,10 +24,11 @@ public class Todo extends Timestamped {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-    public Todo(String title, String managerName, String description) {
+    public Todo(String title, String managerName, String description, String passwrod) {
         this.title = title;
         this.managerName = managerName;
         this.description = description;
+        this.passwrod = passwrod;
     }
 
 }
