@@ -23,8 +23,7 @@ public class TodoService {
         Todo newTodo = new Todo(
                 todoSaveRequestDto.getTitle(),
                 todoSaveRequestDto.getDescription(),
-                todoSaveRequestDto.getUser(),
-                todoSaveRequestDto.getPassword()
+                todoSaveRequestDto.getUser()
         );
 
         Todo savedTodo = todoRepository.save(newTodo);

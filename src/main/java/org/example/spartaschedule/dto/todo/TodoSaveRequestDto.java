@@ -8,5 +8,4 @@ public class TodoSaveRequestDto {
     private String title;
     private String user;
     private String description;
-    private String password;
 }

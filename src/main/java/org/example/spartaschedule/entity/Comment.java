@@ -20,9 +20,14 @@ public class Comment extends Timestamped {
     @JoinColumn(name = "todo_id")
     private Todo todo;
 
-    public Comment(String user, String comment) {
+    public Comment(String user, String comment, Todo todo) {
+        this.user = user;
+        this.comment = comment;
+        this.todo = todo;
+    }
+
+    public void update(String user, String comment) {
         this.user = user;
         this.comment = comment;
     }
-
 }
