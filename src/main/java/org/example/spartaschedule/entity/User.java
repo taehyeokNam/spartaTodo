@@ -1,11 +1,11 @@
 package org.example.spartaschedule.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,6 +17,9 @@ public class User extends Timestamped {
     private Long id;
     private String userName;
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserTodo> userTodos = new ArrayList<>();
 
     public User(String userName, String email) {
         this.userName = userName;

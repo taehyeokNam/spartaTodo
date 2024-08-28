@@ -53,11 +53,6 @@ public class UserService {
         return dtoList;
     }
 
-
-    private User findUserById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(()-> new NullPointerException("존재하지 않는 유저입니다"));
-    }
-
     public UserDetailResponseDto getUser(Long userId) {
 
         User user = findUserById(userId);
@@ -76,5 +71,9 @@ public class UserService {
         if(findUserById(userId) != null) {
             userRepository.deleteById(userId);
         }
+    }
+
+    private User findUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(()-> new NullPointerException("존재하지 않는 유저입니다"));
     }
 }

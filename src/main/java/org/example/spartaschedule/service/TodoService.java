@@ -111,5 +111,4 @@ public class TodoService {
         return todoRepository.findById(todoId).orElseThrow(()-> new NullPointerException("존재하지 않는 일정입니다."));
     }
 
-
 }

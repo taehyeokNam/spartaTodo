@@ -19,6 +19,9 @@ public class Todo extends Timestamped {
     private String user;
     private String description;
 
+    @OneToMany(mappedBy = "todo")
+    private List<UserTodo> userTodos = new ArrayList<>();
+
     @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 

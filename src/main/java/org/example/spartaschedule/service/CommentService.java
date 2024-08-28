@@ -99,6 +99,4 @@ public class CommentService {
         return commentRepository.findById(commentId).orElseThrow(()-> new NullPointerException("존재하지 않는 댓글입니다."));
     }
 
-
-
 }
