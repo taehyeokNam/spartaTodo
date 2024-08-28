@@ -21,15 +21,13 @@ public class Todo extends Timestamped {
     private String title;
     private String managerName;
     private String description;
-    private String passwrod;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private String password;
 
-    public Todo(String title, String managerName, String description, String passwrod) {
+    public Todo(String title, String managerName, String description, String password) {
         this.title = title;
         this.managerName = managerName;
         this.description = description;
-        this.passwrod = passwrod;
+        this.password = password;
     }
 
 }
