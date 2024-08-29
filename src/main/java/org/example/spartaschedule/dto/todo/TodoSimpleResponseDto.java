@@ -11,7 +11,6 @@ public class TodoSimpleResponseDto {
 
     private final Long id;
     private final String title;
-    private final UserDto user;
     private final String description;
     private final int commentCount;
     private final LocalDateTime createdAt;
@@ -20,7 +19,6 @@ public class TodoSimpleResponseDto {
     public TodoSimpleResponseDto(
             Long id,
             String title,
-            UserDto user,
             String description,
             int commentCount,
             LocalDateTime createdAt,
@@ -28,7 +26,6 @@ public class TodoSimpleResponseDto {
     ) {
         this.id = id;
         this.title = title;
-        this.user = user;
         this.description = description;
         this.commentCount = commentCount;
         this.createdAt = createdAt;

@@ -44,23 +44,19 @@ public class TodoService {
     }
 
     public Page<TodoSimpleResponseDto> getTodos(int page, int size) {
-
         Pageable pageable = PageRequest.of(page - 1, size);
 
         Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
 
-        return todos.map(todo -> {
-            User user = todo.getUser();
-            return new TodoSimpleResponseDto(
+        return todos.map(todo -> new TodoSimpleResponseDto(
                     todo.getId(),
                     todo.getTitle(),
-                    new UserDto(user.getId(), user.getUserName(), user.getEmail()),
                     todo.getDescription(),
                     todo.getComments().size(),
                     todo.getCreatedAt(),
                     todo.getModifiedAt()
-            );
-        });
+            )
+        );
     }
 
     public TodoDetailResponseDto getTodo(Long todoId) {
