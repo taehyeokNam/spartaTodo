@@ -16,10 +16,11 @@ public class User extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userName;
+    @Column(unique = true)
     private String email;
 
     @OneToMany(mappedBy = "user")
-    private List<UserTodo> userTodos = new ArrayList<>();
+    private List<Manager> managers = new ArrayList<>();
 
     public User(String userName, String email) {
         this.userName = userName;

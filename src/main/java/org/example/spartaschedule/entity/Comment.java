@@ -13,21 +13,23 @@ public class Comment extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String user;
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "todo_id")
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "todo_id", nullable = false)
     private Todo todo;
 
-    public Comment(String user, String comment, Todo todo) {
+    public Comment(User user, String comment, Todo todo) {
         this.user = user;
         this.comment = comment;
         this.todo = todo;
     }
 
-    public void update(String user, String comment) {
-        this.user = user;
+    public void update(String comment) {
         this.comment = comment;
     }
 }

@@ -1,19 +1,20 @@
 package org.example.spartaschedule.dto.todo;
 
 import lombok.Getter;
+import org.example.spartaschedule.dto.user.UserDto;
 
 @Getter
 public class TodoUpdateResponseDto {
 
-    private Long id;
-    private String title;
-    private String user;
-    private String description;
+    private final Long id;
+    private final String title;
+    private final UserDto user;
+    private final String description;
 
     public TodoUpdateResponseDto (
             Long id,
             String title,
-            String user,
+            UserDto user,
             String description
     ) {
         this.id = id;

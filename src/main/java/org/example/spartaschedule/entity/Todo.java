@@ -16,24 +16,23 @@ public class Todo extends Timestamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String user;
-    private String description;
+     private String description;
 
-    @OneToMany(mappedBy = "todo")
-    private List<UserTodo> userTodos = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    public Todo(String title, String user, String description) {
+    public Todo(String title, User user, String description) {
         this.title = title;
         this.user = user;
         this.description = description;
     }
 
-    public void update(String title, String user, String description) {
+    public void update(String title, String description) {
         this.title = title;
-        this.user = user;
         this.description = description;
     }
 }

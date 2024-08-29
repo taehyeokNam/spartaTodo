@@ -2,8 +2,11 @@ package org.example.spartaschedule.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.spartaschedule.dto.todo.*;
+import org.example.spartaschedule.dto.user.UserDto;
 import org.example.spartaschedule.entity.Todo;
+import org.example.spartaschedule.entity.User;
 import org.example.spartaschedule.repository.TodoRepository;
+import org.example.spartaschedule.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,14 +19,17 @@ import org.springframework.transaction.annotation.Transactional;
 public class TodoService {
 
     private final TodoRepository todoRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public TodoSaveResponseDto saveTodo(TodoSaveRequestDto todoSaveRequestDto) {
 
+        User user = findUserById(todoSaveRequestDto.getUserId());
+
         Todo newTodo = new Todo(
                 todoSaveRequestDto.getTitle(),
-                todoSaveRequestDto.getDescription(),
-                todoSaveRequestDto.getUser()
+                user,
+                todoSaveRequestDto.getDescription()
         );
 
         Todo savedTodo = todoRepository.save(newTodo);
@@ -31,7 +37,7 @@ public class TodoService {
         return new TodoSaveResponseDto(
                 savedTodo.getId(),
                 savedTodo.getTitle(),
-                savedTodo.getUser(),
+                new UserDto(user.getId(), user.getUserName(), user.getEmail()),
                 savedTodo.getDescription(),
                 savedTodo.getCreatedAt()
         );
@@ -43,38 +49,30 @@ public class TodoService {
 
         Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
 
-        return todos.map(todo -> new TodoSimpleResponseDto(
-                todo.getId(),
-                todo.getTitle(),
-                todo.getUser(),
-                todo.getDescription(),
-                todo.getCreatedAt(),
-                todo.getModifiedAt()
-        ));
-//        List<Todo> todoList =  todoRepository.findAll();
-//        List<TodoSimpleResponseDto> dtoList = new ArrayList<>();
-//
-//        for (Todo todo : todoList) {
-//            TodoSimpleResponseDto dto = new TodoSimpleResponseDto(
-//                    todo.getId(),
-//                    todo.getTitle(),
-//                    todo.getUser(),
-//                    todo.getDescription(),
-//                    todo.getCreatedAt(),
-//                    todo.getModifiedAt()
-//            );
-//        }
-//        return dtoList;
+        return todos.map(todo -> {
+            User user = todo.getUser();
+            return new TodoSimpleResponseDto(
+                    todo.getId(),
+                    todo.getTitle(),
+                    new UserDto(user.getId(), user.getUserName(), user.getEmail()),
+                    todo.getDescription(),
+                    todo.getComments().size(),
+                    todo.getCreatedAt(),
+                    todo.getModifiedAt()
+            );
+        });
     }
 
     public TodoDetailResponseDto getTodo(Long todoId) {
 
         Todo todo = findTodoById(todoId);
+        User user = todo.getUser();
 
         return new TodoDetailResponseDto(
                 todo.getId(),
                 todo.getTitle(),
-                todo.getUser(),
+                new UserDto(user.getId(), user.getUserName(), user.getEmail()),
+                todo.getComments().size(),
                 todo.getCreatedAt(),
                 todo.getModifiedAt()
         );
@@ -83,17 +81,17 @@ public class TodoService {
     @Transactional
     public TodoUpdateResponseDto updateTodo(Long todoId , TodoUpdateRequestDto todoUpdateRequestDto) {
         Todo todo = findTodoById(todoId);
+        User user = todo.getUser();
 
         todo.update(
                 todoUpdateRequestDto.getTitle(),
-                todoUpdateRequestDto.getUser(),
                 todoUpdateRequestDto.getDescription()
         );
 
         return new TodoUpdateResponseDto(
                 todo.getId(),
                 todo.getTitle(),
-                todo.getUser(),
+                new UserDto(user.getId(), user.getUserName(), user.getEmail()),
                 todo.getDescription()
         );
     }
@@ -109,6 +107,10 @@ public class TodoService {
 
     private Todo findTodoById(Long todoId) {
         return todoRepository.findById(todoId).orElseThrow(()-> new NullPointerException("존재하지 않는 일정입니다."));
+    }
+
+    private User findUserById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(()-> new NullPointerException("존재하지 않는 일정입니다."));
     }
 
 }

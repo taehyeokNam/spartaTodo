@@ -6,6 +6,6 @@ import lombok.Getter;
 public class TodoSaveRequestDto {
 
     private String title;
-    private String user;
+    private Long userId;
     private String description;
 }

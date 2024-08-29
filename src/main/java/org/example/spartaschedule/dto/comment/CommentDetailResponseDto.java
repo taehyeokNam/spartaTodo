@@ -1,6 +1,7 @@
 package org.example.spartaschedule.dto.comment;
 
 import lombok.Getter;
+import org.example.spartaschedule.dto.user.UserDto;
 
 import java.time.LocalDateTime;
 
@@ -8,14 +9,14 @@ import java.time.LocalDateTime;
 public class CommentDetailResponseDto {
 
     private final Long id;
-    private final String user;
+    private final UserDto user;
     private final String comment;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
     public CommentDetailResponseDto(
             Long id,
-            String user,
+            UserDto user,
             String comment,
             LocalDateTime createdAt,
             LocalDateTime modifiedAt

@@ -24,7 +24,15 @@ public class UserService {
     @Transactional
     public UserSaveResponseDto saveUser(UserSaveRequestDto userSaveRequestDto) {
 
-        User newUser = new User();
+        if(userRepository.existsByEmail(userSaveRequestDto.getEmail())) {
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
+        }
+
+        User newUser = new User(
+                userSaveRequestDto.getUserName(),
+                userSaveRequestDto.getEmail()
+        );
+
         User savedUser = userRepository.save(newUser);
 
         return new UserSaveResponseDto(

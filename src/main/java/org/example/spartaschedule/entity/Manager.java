@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class UserTodo {
+public class Manager {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +20,7 @@ public class UserTodo {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public UserTodo(Todo todo, User user) {
+    public Manager(Todo todo, User user) {
         this.todo = todo;
         this.user = user;
     }
